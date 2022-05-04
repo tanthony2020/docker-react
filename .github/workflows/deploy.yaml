@@ -9,11 +9,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo username $${{secrets.DOCKER_USERNAME}}
-      - run: echo password $${{secrets.DOCKER_PASSWORD}}
       - run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
       - run: docker build -t cygnetops/react-test .
-      #- run: docker run -e CI=true cygnetops/react-test npm test
+      - run: docker run -e CI=true cygnetops/react-test npm test
  
       - name: Generate deployment package
         run: zip -r deploy.zip . -x '*.git*'
