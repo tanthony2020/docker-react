@@ -1,0 +1,13 @@
+FROM node:16-alpine
+RUN echo "Node Version:" && node --version
+RUN echo "NPM Version:" && npm --version
+#RUN addgroup app && adduser -S -G app app
+#USER app
+#WORKDIR /app
+COPY package.json .
+#RUN mkdir -p /app/node_modules
+#RUN chown node:node /app/node_modules
+RUN npm install --unsafe-perm=true --allow-root
+#RUN npm update
+COPY . .
+CMD ["npm", "run", "start"]
